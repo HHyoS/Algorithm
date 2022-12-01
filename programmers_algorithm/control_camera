@@ -1,0 +1,23 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<vector<int>> routes) {
+    int answer = 0;
+    sort(routes.begin(), routes.end());
+    int start = routes[0][0];
+    int end = routes[0][1];
+    for(int a = 1; a < routes.size(); ++a){
+        if(end >= routes[a][1])
+            end = routes[a][1];
+        else if(end < routes[a][0]){
+            ++answer;
+            start = routes[a][0];
+            end = routes[a][1];
+        }
+        if(a == routes.size()-1)
+            ++answer;
+    }
+    return answer;
+}
