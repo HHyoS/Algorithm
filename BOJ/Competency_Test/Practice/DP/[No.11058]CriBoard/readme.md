@@ -34,29 +34,33 @@
 
 코드
 
-    #include <cstdio>
+        #define _CRT_SECURE_NO_WARNINGS
+        #include<iostream>
+        #include <memory.h>
+        #include <algorithm>
 
-    using namespace std;
+        using namespace std;
 
-    long long d[101];
+        long long dp[101];
+        int main() {
+            ios::sync_with_stdio(false);
+            cin.tie(NULL);
+            cout.tie(NULL);
 
-    int Max(int x, int y) {
-        if (x < y) return y;
-        else return x;
-    }
-
-    int main() {
-        int n;
-        scanf("%d", &n);
-        d[0] = 0;
-        for (int i = 1; i <= n; i++) {
-            d[i] = d[i-1] + 1;
-            for (int j = 3; j <= i; j++) {
-                if (d[i] < d[i-j]*(j-1)) d[i] = d[i-j]*(j-1);
+            //freopen("input.txt", "r", stdin);
+            int N;
+            cin >> N;
+            for (int a = 1; a <= 6; ++a) {
+                dp[a] = a;
             }
+            for (int a = 7; a <= N; ++a) {
+                for (int b = 3; a - b > 0; ++b) {
+                    dp[a] = max(dp[a], dp[a - b] * (b - 1));
+                }
+            }
+            return 0;
+
         }
-        printf("%lld\n", d[n]);
-    }
 
 설명
 
