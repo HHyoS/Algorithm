@@ -25,13 +25,13 @@ bool operator<(Boom a, Boom b) {
         }
         return a.x > b.x;
     }
-
     return a.time > b.time;
 }
 
 int R, C, N;
 char map[202][202];
 priority_queue<Boom> que;
+int distroy[202][202];
 queue<Node> wait;
 int mov[5][2] = { {0,0}, {-1,0},{0,1},{1,0},{0,-1} };
 
@@ -48,26 +48,25 @@ void run() {
 
 
     for (int time = 2; time <= N; ++time) {
-        cout << "[" << time << "]\n";
         if (time % 2 == 0) {
             while (!wait.empty()) {
                 Node now = wait.front();
                 wait.pop();
                 map[now.x][now.y] = 'O';
-                que.push({ now.x,now.y,time});
+                distroy[now.x][now.y] = time + 3;
+                que.push({ now.x,now.y,time });
             }
         }
         else {
-            cout << que.top().time << "\n";
             while (que.top().time == time - 3) {
                 Boom nowBoom = que.top();
                 que.pop();
+                if (distroy[nowBoom.x][nowBoom.y] != time) continue;
                 for (int a = 0; a < 5; ++a) {
                     int x = nowBoom.x + mov[a][0];
                     int y = nowBoom.y + mov[a][1];
 
                     if (x >= R || x < 0 || y >= C || y < 0) continue;
-
                     if (map[x][y] == 'O') {
                         map[x][y] = '.';
                         wait.push({ x,y });
@@ -75,7 +74,6 @@ void run() {
                 }
             }
         }
-        print();
     }
 }
 
@@ -90,15 +88,31 @@ int main() {
         for (int b = 0; b < C; ++b) {
             cin >> map[a][b];
             if (map[a][b] == 'O') {
-                que.push({a,b,0});
+                que.push({ a,b,0 });
+                distroy[a][b] = 3;
             }
             else {
-                wait.push({ a,b });
+                if (N % 2 == 0)
+                    map[a][b] = 'O';
+                else {
+                    wait.push({ a,b });
+                }
             }
         }
     }
-    run();
 
+    if (N == 1 || (N%2 == 0))
+        print();
+    else {
+        if (N % 4 == 1) {
+            N = 5;
+        }
+        else if (N % 4 == 3) {
+            N = 3;
+        }
+        run();
+        print();
+    }
     return 0;
 
 }
