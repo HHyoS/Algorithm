@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+7#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 #include <memory.h>
 #include <algorithm>
@@ -54,9 +54,10 @@ int main() {
     if (solve()) {
         cout << "YES";
     }
-    else {
+    else 
         cout << "NO";
-    }
-    return 0;
+    
+    return 0; 
+
 
 }
