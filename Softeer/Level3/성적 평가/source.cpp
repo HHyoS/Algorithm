@@ -6,40 +6,65 @@
 #include <queue>
 using namespace std;
 
-
-struct Node {
+struct Participant {
     int idx;
     int point;
 };
 int N;
-vector<Node> one;
-vector<Node> two;
-vector<Node> three;
+Participant Competition[4][100001];
+vector<Participant> totalRecord;
+int answer[4][100001];
 
-int ans[100001][3];
-bool cmp(Node a, Node b) {
+bool cmp(Participant a, Participant b) {
     if (a.point == b.point) {
-        return a.idx < b.idx;
+        return a.idx > b.idx;
     }
     return a.point > b.point;
 }
+void solve() {
+
+    sort(Competition[0], Competition[0] + N, cmp);
+    sort(Competition[1], Competition[1] + N, cmp);
+    sort(Competition[2], Competition[2] + N, cmp);
+    sort(Competition[3], Competition[3] + N, cmp);
+    for (int a = 0; a < 4; ++a) {
+        int rank = -1;
+        int beforePoint = -1;
+        for (int b = 0; b < N; ++b) {
+            int point = Competition[a][b].point;
+            int index = Competition[a][b].idx;
+            if (beforePoint == point) {
+                answer[a][index] = rank;
+            }
+            else {
+                rank = b + 1;
+                answer[a][index] = rank;
+                beforePoint = point;
+            }
+        }
+    }
+    
+    for (int a = 0; a < 4; ++a) {
+        for (int b = 0; b < N; ++b) {
+            cout << answer[a][b] << " ";
+        }
+        cout << "\n";
+    }
+
+}
 void input() {
     cin >> N;
-    for (int a = 0; a < N; ++a) {
-        int first, second, third;
-        cin >> first >> second >> third;
-        one.push_back({ a,first });
-        two.push_back({ a,second });
-        three.push_back({ a,third });
+    for (int a = 0; a < 3; ++a) {
+        int point;
+        for (int b = 0; b < N; ++b) {
+            cin >> point;
+            Competition[a][b] = { b,point };
+        }
     }
-    sort(one.begin(), one.end(), cmp);
-    sort(two.begin(), two.end(), cmp);
-    sort(three.begin(), three.end(), cmp);
-
     for (int a = 0; a < N; ++a) {
-        int gijoon = one[a].point;
+        Competition[3][a] = { a,Competition[0][a].point + Competition[1][a].point + Competition[2][a].point };
     }
-
+    
 }
 int main() {
     ios::sync_with_stdio(false);
