@@ -88,3 +88,9 @@
 해당 내용을 바탕으로 수정후 도전하겠습니다 ..
 
 ![image](https://user-images.githubusercontent.com/57944215/211566424-f175a663-f183-4a48-8332-0b57ff387f8f.png)
+
+23.01.11
+테스트케이스 하나떄문에 틀리고있습니다... 금방 찾겠습니다..
+
+![image](https://user-images.githubusercontent.com/57944215/211834819-a9336806-fc6e-481a-8727-2a3408fb3e9a.png)
+![image](https://user-images.githubusercontent.com/57944215/211834820-1be4410c-860d-4dca-9dce-4a529176c64b.png)
