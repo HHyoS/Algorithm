@@ -1,3 +1,6 @@
+![88d3da36-b574-49b7-81dc-0ee0f4fee514](https://user-images.githubusercontent.com/57944215/212319411-d99747b5-2490-461c-b87f-3cf8c445e0e4.jpg)
+
+
 문제 사이트 : https://softeer.ai/practice/info.do?idx=1&eid=393&sw_prbl_sbms_sn=126167
 
 문제 설명 :
