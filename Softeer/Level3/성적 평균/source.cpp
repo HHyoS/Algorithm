@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <string>
 
-using namespace std;
+using namespace std; 
 
 double grade[1000001];
 double memo[1000001];
