@@ -1,4 +1,4 @@
-![defaultImage](https://user-images.githubusercontent.com/57944215/216618407-1b873ca5-63ef-4c8d-8a9f-1bf4fbb0eb18.png)
+![d72e346b-1257-4e00-9c00-58b8b28dfb4d](https://user-images.githubusercontent.com/57944215/216619608-15ff775b-1157-426a-b454-3cff39f409e8.jpg)
 
 문제 사이트 : https://softeer.ai/practice/info.do?idx=1&eid=623&sw_prbl_sbms_sn=142290
 
