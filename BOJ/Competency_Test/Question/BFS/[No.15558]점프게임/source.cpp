@@ -1,104 +1,63 @@
-#include<iostream>
-#include<string>
-#include<queue>
- 
-#define MAX 100000
+#include <iostream>
+#include <queue>
+#include <algorithm>
+#include <string>
 using namespace std;
- 
+
+struct Node {
+    int position;
+    int idx;
+};
+string line[2];
+bool visited[2][100001];
 int N, K;
-int MAP[2][MAX];
-bool Visit[2][MAX];
- 
-int dx[] = { 0, 0, 1, -1 };
-int dy[] = { 1, -1, 0, 0 };
- 
-void Input()
-{
-    cin >> N >> K;
-    for (int i = 0; i < 2; i++)
-    {
-        string Inp; cin >> Inp;
-        for (int j = 0; j < Inp.length(); j++)
-        {
-            MAP[i][j] = Inp[j] - '0';
-        }
-    }
-}
- 
-void BFS()
-{
-    bool Flag = false;
-    queue<pair<pair<int, int>, int>> Q;
-    Q.push(make_pair(make_pair(0, 0), 0));    // x, y, time
-    Visit[0][0] = true;
- 
-    while (Q.empty() == 0 && Flag == false)
-    {
-        int x = Q.front().first.first;
-        int y = Q.front().first.second;
-        int Time = Q.front().second;
-        Q.pop();
- 
-        if (Time >= N) break;
- 
-        for (int i = 0; i < 2; i++)
-        {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
- 
-            if (ny >= N) Flag = true;
- 
-            if (nx >= 0 && ny > Time && nx < 2 && ny < N)
-            {
-                if (MAP[nx][ny] == 1 && Visit[nx][ny] == false)
-                {
-                    Visit[nx][ny] = true;
-                    Q.push(make_pair(make_pair(nx, ny), Time + 1));
-                }
-            }
-        }
- 
-        for (int i = 2; i < 4; i++)
-        {
-            int nx = x + dx[i];
-            int ny = y + dy[i] + K;
+queue<Node> que;
+
+int solve() {
+    visited[0][0] = 1;
+    que.push({ 0,0 });
+    int time = 0;
+    while (!que.empty()) {
+        
+        int size = que.size();
+
+        for (int s = 0; s < size; ++s) {
+            Node now = que.front();
+            que.pop();
+
+            if (now.idx < time) continue;
             
-            if (ny >= N) Flag = true;
- 
-            if (nx >= 0 && ny > Time && nx < 2 && ny < N)
-            {
-                if (MAP[nx][ny] == 1 && Visit[nx][ny] == false)
-                {
-                    Visit[nx][ny] = true;
-                    Q.push(make_pair(make_pair(nx, ny), Time + 1));
-                }
+            if (now.idx + K >= N) {
+                return 1;
+            }
+            
+            int nextPosition = (now.position + 1) % 2;
+            if (line[nextPosition][now.idx + K] == '1' && visited[nextPosition][now.idx+K] == 0){
+                visited[nextPosition][now.idx+K] = 1;
+                que.push({ nextPosition,now.idx + K });
+            }
+            if (line[now.position][now.idx + 1] == '1' && visited[now.position][now.idx+1] == 0) {
+                visited[now.position][now.idx + 1] =1;
+                que.push({ now.position,now.idx+1 });
+            }
+            if (now.idx - 1 > time && line[now.position][now.idx - 1] == '1' && visited[now.position][now.idx-1] == 0) {
+                visited[now.position][now.idx - 1] = 1;
+                que.push({ now.position,now.idx - 1 });
             }
         }
+        ++time;
     }
- 
-    if (Flag == true) cout << 1 << endl;
-    else cout << 0 << endl;
+    return 0;
 }
- 
-void Solution()
-{
-    BFS();
+void input() {
+    cin >> N >> K >> line[0] >> line[1];
 }
- 
-void Solve()
-{
-    Input();
-    Solution();
-}
- 
-int main(void)
-{
+
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
- 
-    //freopen("Input.txt", "r", stdin);
-    Solve();
- 
+    input();
+    cout << solve();
     return 0;
 }
