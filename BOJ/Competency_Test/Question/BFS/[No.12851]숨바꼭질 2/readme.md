@@ -72,6 +72,5 @@
    
 풀이 인증샷
 
-![image](https://user-images.githubusercontent.com/57944215/218471756-4fbac108-8a51-46c8-b7f7-69908d460c9e.png)
-
+![image](https://user-images.githubusercontent.com/57944215/218474178-83277ecc-7a2c-4640-98da-f54fef321cae.png)
         
