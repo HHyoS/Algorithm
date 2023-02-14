@@ -1,0 +1,90 @@
+#include <iostream>
+#include <queue>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+struct Node {
+    int x;
+    int y;
+};
+int N, M, P;
+int jump[10];
+char map[1011][1011];
+bool visited[1011][1011];
+int ans[10];
+queue<Node> que[10];
+int mov[4][2] = { {-1,0},{0,1},{1,0},{0,-1} };
+
+void solve() {
+
+    while (1) {
+        int flag = 0;
+
+        for (int a = 1; a <= P; ++a) {
+            if (que[a].empty()) continue;
+
+            int time = 1;
+            while (time <= jump[a]) {
+                int size = que[a].size();
+                if(size == 0)
+                    break;
+                for (int s = 0; s < size; ++s) {
+                    Node now = que[a].front();
+                    que[a].pop();
+
+                    for (int b = 0; b < 4; ++b) {
+                        int nx = now.x + mov[b][0];
+                        int ny = now.y + mov[b][1];
+
+                        if (nx <= 0 || nx > N || ny <= 0 || ny > M) continue;
+                        if (visited[nx][ny] == 1) continue;
+                        if (map[nx][ny] == '#') continue;
+                        visited[nx][ny] = 1;
+                        que[a].push({ nx,ny });
+                        ++ans[a];
+                        if (flag == 0)
+                            flag = 1;
+
+                    }
+                }
+                ++time;
+            }
+
+        }
+        if (flag == 0) {
+            break;
+        }
+    }
+    for (int a = 1; a <= P; ++a) {
+        cout << ans[a] << " ";
+    }
+}
+
+void input() {
+    cin >> N >> M >> P;
+    for (int a = 1; a <= P; ++a) {
+        cin >> jump[a];
+    }
+    for (int a = 1; a <= N; ++a) {
+        for (int b = 1; b <= M; ++b) {
+            cin >> map[a][b];
+            if (map[a][b] != '.' && map[a][b] != '#') {
+                visited[a][b] = 1;
+                que[map[a][b] - '0'].push({ a,b });
+                ans[map[a][b] - '0']++;
+            }
+        }
+    }
+}
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+   // freopen("input.txt", "r", stdin);
+    input();
+    solve();
+    return 0;
+}
