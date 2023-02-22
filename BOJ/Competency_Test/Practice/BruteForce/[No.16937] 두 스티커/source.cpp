@@ -15,7 +15,7 @@ struct Node {
     int y;
 };
 int H,W,N;
-int map[101][101];
+int map[110][110];
 vector<Node> v;
 
 
@@ -32,13 +32,13 @@ bool check(int x, int y, int h, int w) {
 }
 
 int findMax(int width, int height) {
-
+    int maxi = 0;
     for (int b = 0; b < H; ++b) {
+        if(b+height > H) break;
         for (int c = 0; c < W; ++c) {
-            if (map[b][c] == 0 && b + height <= H && c + width <= W) {
-                if (check(b, c, height, width)) {
-                    return height * width;
-                }
+            if(c+width > W) break;
+            if (check(b, c, height, width)) {
+                return height * width;
             }
         }
     }
@@ -66,8 +66,8 @@ int solve() {
         int width = v[a].y;
         int height = v[a].x;
         int ans = width * height;
-        if (width > H && width > W) continue;
-        if (height > H && height > W) continue;
+        if (width > W) continue;
+        if (height > H) continue;
         paint(height, width, 1);
 
         int result = isPossible((a/2)*2+2);
@@ -95,12 +95,12 @@ int main() {
     srand(time(NULL));
     clock_t start, finish;
     double duration;
-    freopen("input.txt", "r", stdin);
+   // freopen("input.txt", "r", stdin);
     start = clock();
     input();
-    cout << solve()<<"\n";
-    finish = clock();
-    duration = (double)(finish - start) / CLOCKS_PER_SEC;
-    cout << duration << "초" << endl;
+    cout << solve();
+  //  finish = clock();
+   // duration = (double)(finish - start) / CLOCKS_PER_SEC;
+  //  cout << duration << "초" << endl;
     return 0;
 }
