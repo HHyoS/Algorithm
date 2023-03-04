@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS 
 
 #include <iostream>
 #include <queue>
@@ -20,6 +20,7 @@ int solve() {
         if (team[a]) {
             if (redundancy[a - 1] == 1) {
                 redundancy[a - 1] = 0;
+
             }
             else if (redundancy[a + 1] == 1) {
                 redundancy[a + 1] = 0;
