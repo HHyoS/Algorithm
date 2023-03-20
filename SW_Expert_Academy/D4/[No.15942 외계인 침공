@@ -1,0 +1,109 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <queue>
+using namespace std;
+
+
+int N, T;
+long long K;
+vector<long long>planet;
+vector<long long>temp;
+long long solve() {
+
+    long long cnt = 0;
+    long long target = K;
+    int idx = 0;
+    int ret = upper_bound(planet.begin() + idx, planet.end(), target) - planet.begin();
+    if (ret == 0){
+        if (planet[ret] > target) {
+            return -1;
+        }
+        else {
+            ++cnt;
+            target += planet[ret];
+            idx = ret;
+        }
+    }
+    else if (ret == N) {
+        temp.push_back(planet[0]);
+    }
+    else if(ret < N){
+        for (int a = 0; a < ret - 1; ++a) {
+            temp.push_back(planet[a]);
+        }
+        target += planet[ret - 1];
+        idx = ret - 1;
+        ++cnt;
+    }
+    while (1) {
+        ret = upper_bound(planet.begin() + idx, planet.end(), target) - planet.begin();
+        if (ret == N) {
+            for (int a = idx + 1; a < N; ++a) {
+                temp.push_back(planet[a]);
+            }
+            break;
+        }
+        else if (ret == idx + 1) {
+            if (temp.size() == 0) {
+                return -1;
+            }
+            target += temp.back();
+            temp.pop_back();
+            ++cnt;
+        }
+        else {
+            for (int a = idx + 1; a < ret - 1; ++a) {
+                temp.push_back(planet[a]);
+            }
+            target += planet[ret - 1];
+            ++cnt;
+            idx = ret - 1;
+        }
+    }
+
+    long long total = 0;
+    for (int a = 0; a < temp.size(); ++a) {
+        total += temp[a];
+    }
+    if (total > target) {
+        for (int a = temp.size() - 1; a >= 0; --a) {
+            ++cnt;
+           	target += temp[a];
+            total -= temp[a];
+            if (total <= target) {
+                break;
+            }
+        }
+    }
+    return cnt;
+}
+void input() {
+    cin >> T;
+    for (int t = 1; t <= T; ++t) {
+        cin >> N >> K;
+        for (int a = 0; a < N; ++a) {
+            long long temp;
+            cin >> temp;
+            planet.push_back(temp);
+        }
+        sort(planet.begin(), planet.end());
+        cout << "#"<<t<<" "<<solve() << "\n";
+        temp.clear();
+        planet.clear();
+    }
+ }
+
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+ //   freopen("input.txt", "r", stdin);
+
+    input();
+    return 0;
+}
