@@ -41,5 +41,5 @@ int main(){
 
     cout << max(lenAB,max(lenBC,lenCA)) - min(lenAB,min(lenBC,len3LCA)) << '\n';
 
-return 0;
+    return 0;
 }
