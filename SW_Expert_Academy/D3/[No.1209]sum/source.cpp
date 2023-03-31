@@ -1,51 +1,62 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
-#include <string>
+#include <vector>
 #include <algorithm>
+#include <string>
 #include <queue>
-#define RULE 100
-#define max(a,b) (a>b?a:b)
+#include <memory.h>
 using namespace std;
 
-int test_case, T = 10, tn;
-int arr[RULE][RULE];
-int sum1, sum2, sum3, max_sum;
+int S;
+int arr[101][101];
 
-void inputArr() {
-	for (int i = 0; i < RULE; i++) {
-		for (int j = 0; j < RULE; j++) {
-			cin >> arr[i][j];
-		}
-	}
+int solve() {
+    int maxi = -1;
+    int LeftDownCross = 0;
+    int RightDownCross = 0;
+    for (int a = 0; a < S; ++a) {
+        int rowSum = 0;
+        int colSum = 0;
+        for (int b = 0; b < S; ++b) {
+            if (a == b) {
+                LeftDownCross += arr[a][b];
+            }
+            if (a + b == S-1) {
+                RightDownCross += arr[a][b];
+            }
+            rowSum += arr[a][b];
+            colSum += arr[b][a];
+        }
+        maxi = max(maxi, max(rowSum, colSum));
+    }
+    maxi = max(maxi, max(LeftDownCross, RightDownCross));
+
+    return maxi;
 }
+void input() {
+    int T;
+    S = 100;
+    T = 10;
+    for (int t = 1; t <= T; ++t) {
+        int N;
+        cin >> N;
+        for (int a = 0; a < S; ++a) {
+            for (int b = 0; b < S; ++b) {
+                cin >> arr[a][b];
+            }
+        }
+        cout << "#"<<N<<" "<<solve() << "\n";
+    }
+ }
 
-void maxSum() {
-	max_sum = 0;
-	for (int i = 0; i < RULE; i++) {
-		sum1 = 0, sum2 = 0, sum3 = 0;
-		for (int j = 0; j < RULE; j++) {
-			sum1 += arr[i][j];
-			sum2 += arr[j][i];
-			if (i == j) // 대각은 굳이 안 해줘도 될 듯하다.
-				sum3 += arr[i][j];
-		}
 
-		max_sum = max(max_sum, sum1);
-		max_sum = max(max_sum, sum2);
-		max_sum = max(max_sum, sum3);
-	}
-}
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+  //  freopen("input.txt", "r", stdin);
 
-int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-
-	for (test_case = 1; test_case <= T; test_case++) {
-		cin >> tn;
-
-		inputArr(); // 배열 입력
-		maxSum(); // 가장 큰 합 찾기
-
-		cout << "#" << test_case << " " << max_sum << "\n";
-	}
-	return 0;
+    input();
+    return 0;
 }
