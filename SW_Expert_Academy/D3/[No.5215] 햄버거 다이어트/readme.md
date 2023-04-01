@@ -78,6 +78,6 @@
 dp사용
 ![image](https://user-images.githubusercontent.com/57944215/229298697-366c9cd0-48a3-4918-951e-217ca681ee2c.png)
 
-dfs + dp를 사용한 재방문 차단
+dfs + 비트맵마스크를 사용한 재방문 차단
 ![image](https://user-images.githubusercontent.com/57944215/229298733-41cf5390-b7ea-4441-9cd1-f664c809e873.png)
 
