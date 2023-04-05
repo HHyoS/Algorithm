@@ -1,59 +1,61 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
- 
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <queue>
+#include <memory.h>
 using namespace std;
- 
+
 int N, K;
-int arr[20];
-int answer;
- 
-void makeSum(int idx, int sum) {
- 
-    //합이 K를 넘는 경우 -> 더 이상 더할 필요없으므로 종료
-    if (sum > K) {
+int nums[21];
+int ans = 0;
+void dfs(int idx,int sum) {
+    if (idx == N) {
+        if (sum == K)
+            ++ans;
         return;
     }
- 
-    //합이 K인 경우 -> answer갱신 후 종료
     if (sum == K) {
-        answer++;
+        ++ans;
         return;
     }
- 
-    //자신보다 뒤에 있는 원소 더해보기(중복 제거 위해)
-    for (int i = idx; i < N; i++) {
-        makeSum(i + 1, sum + arr[i]);
+    
+    for (int a = idx + 1; a <= N; ++a) {
+        int temp = sum + nums[a];
+        if (temp > K)
+            continue;
+        dfs(a, sum + nums[a]);
     }
 }
- 
-int main() {
- 
-    int test_case;
-    int T;
- 
-    cin >> T;
- 
-    for (test_case = 1; test_case <= T; test_case++) {
- 
-        //초기화
-        N = 0, K = 0;
-        answer = 0;
- 
-        //입력
-        cin >> N >> K;
-        for (int a = 0; a < N; ++a) {
-            cin >> arr[a];
-        }
- 
-        //해법
-        /*
-        모든 원소 다 더해보기
-        */
-        makeSum(0, 0);
- 
-        //출력
-        cout << "#" << test_case << " " << answer << "\n";
+void solve() {
+    int ans = 0;
+    for (int a = 1; a <= N; ++a) {
+        dfs(a, nums[a]);
     }
- 
-    //종료
+}
+void input() {
+    int T;
+    cin >> T;
+    for (int t = 1; t <= T; ++t) {
+        cin >> N >> K;
+        for (int a = 1; a <= N; ++a) {
+            cin >> nums[a];
+        }
+        solve();
+        cout << "#" << t << " " << ans << "\n";
+        ans = 0;
+    }
+}
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+   // freopen("input.txt", "r", stdin);
+
+    input();
     return 0;
 }
