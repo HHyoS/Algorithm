@@ -25,20 +25,6 @@ bool ccmp(Node a,Node b){
     return a.work+a.coworker > b.work+b.coworker;
 }
 
-int bs(int s, int e){
-    int mid = 0;
-    int gijoon = temp[s].work;
-    while(s <= e){
-        mid = (s+e)/2;
-        if(temp[mid].work == gijoon){
-            s = mid+1;
-        }
-        else {
-            e = mid-1;
-        }
-    }
-    return s;
-}
 int solution(vector<vector<int>> scores) {
     memset(temp,0,sizeof(temp));
     memset(cant,0,sizeof(cant));
@@ -52,10 +38,9 @@ int solution(vector<vector<int>> scores) {
         if(cant[a] ==1 )continue;
         int work = temp[a].work;
         int coworker = temp[a].coworker;
-        int idx = bs(a,size-1);
-        if(idx == size) break;
-        a = idx-1;
-        for(int b = idx; b < size; ++b){
+        for(int b = a+1; b < size; ++b){
+            if(cant[b] == 1) continue;
+            if(work == temp[b].work) continue;
             if(coworker > temp[b].coworker)
                 cant[b] = 1;
         }
@@ -82,4 +67,5 @@ int solution(vector<vector<int>> scores) {
             return ranking;
         }
     }
+    return -1;
 }
