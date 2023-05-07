@@ -1,45 +1,38 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <algorithm>
-
+#include <unordered_map>
 using namespace std;
 
+unordered_map<string,bool> mp;
 vector<int> solution(int n, vector<string> words) {
     vector<int> answer;
-    int turn = 1, count = 1;
-    vector<string> check;
-    
     answer.push_back(0);
     answer.push_back(0);
-    check.push_back(words[0]);
     
-    for(int i = 1; i < words.size(); i++)
-    {
-        turn++;
-        
-        if(words[i].front() == words[i - 1].back())
-        {
-            if(find(check.begin(), check.end(), words[i]) == check.end())
-            {
-                if(i == words.size() - 1)
-                    return answer;
-                check.push_back(words[i]);
-            }
-            else
-                break;
-        }
-        else
+    int turn = 1;
+    int size = words.size();
+    int idx = 1;
+    
+    // 첫번째 사람은 어찌됫는 첫 단어에서 짤릴일이 없음
+    mp[words[0]]=1;
+    char before = words[0].back();
+    
+    for(int a = 1; a < size; ++a){
+        if((before != words[a][0]) || (mp.count(words[a])==1)){
+            answer[0] = idx+1;
+            answer[1] = turn;
             break;
-        
-        if(turn == n)
-        {
-            count++;
-            turn = 0;
+        }
+        else{
+            before = words[a].back();
+            mp[words[a]] = 1;
+            ++idx;
+            if(idx == n){
+                idx = 0;
+                ++turn;
+            }
         }
     }
-    
-    answer[0] = turn;
-    answer[1] = count;
     return answer;
 }
