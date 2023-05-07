@@ -1,30 +1,27 @@
 #include <string>
 #include <vector>
-
+#include <unordered_map>
 using namespace std;
 
-vector<int> solution(vector<int> sequence, int k) {
-    int s = 0, e = 0;
-    int sum = sequence[0]; // 부분 수열의 합
-    int subLen = sequence.size() + 1; // 부분 수열의 길이
-    pair<int, int> result; // 부분 수열의 시작 인덱스와 마지막 인덱스를 담은 객체
+// 합의 종류가 저장될 unorderd_map 변수
+unordered_map<int,bool> mp;
+int solution(vector<int> elements) {
     
-    while (s <= e && e < sequence.size()) {
-        if (sum < k) sum += sequence[++e];
-        else if (sum == k) {
-            if (e-s+1 < subLen) { // 길이가 더 짧은 수열이면
-                subLen = e-s+1;
-                result = {s, e};
-            } else if (e-s+1 == subLen) {
-                if (s < result.first) { // 시작 인덱스가 더 작으면
-                    result = {s, e};
-                }
-            }
+    int size = elements.size();
+    for(int a = 0; a < size; ++a){
+        int now = 0;
+        for(int b =0; b < size; ++b){
+            int idx = (a+b)%size;
+            now += elements[idx];
             
-            sum -= sequence[s++];
-        } 
-        else sum -= sequence[s++];
+            // 만약 mp에 저장되지 않은 새로운 값이라면
+            if(mp.count(now)==0){
+                // mp에 등록
+                mp[now] = 1;
+            }
+        }
     }
-    
-    return {result.first, result.second};
+    // mp에 등록된 값의 갯수가 서로다른 합의 개수이므로 size를 answer에 저장
+    int answer = mp.size();;
+    return answer;
 }
