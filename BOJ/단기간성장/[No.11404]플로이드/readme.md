@@ -83,7 +83,8 @@
   
 풀이 인증샷 
 
- ![image](https://github.com/HHyoS/Algorithm/assets/57944215/26c5927e-ce98-40f2-b0b0-b16510f97dce
+![123](https://github.com/HHyoS/Algorithm/assets/57944215/b1626fe1-29b2-49aa-bc6c-09862fb8e8cc)
+
 
     
     
