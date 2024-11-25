@@ -20,10 +20,10 @@ void InputData() {
         string temp;
         cin >> temp;
 
-        // unordered_map 구조체에 temp에 해당하는 string이 있는지 확인
+        // unordered_map 구조체에 temp index에 해당하는 string이 있는지 확인
         if (NameToNum.count(temp) == 0) {
 
-            // temp에 해당하는 문자가 없다면 구조체에 값을 입력하고, index를 할당시킴
+            // temp에 해당하는 문자가 없다면 temp를 index로 사용하여 번호(idx)를 저장
             NameToNum[temp] = idx;
 
             // index를 바탕으로 이름도 찾아가야 하므로 별도의 값 저장해두기
