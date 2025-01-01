@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
-#include <stack>
 using namespace std;
 
 
@@ -9,15 +7,14 @@ int stone;
 string name[2];
 void Solve() {
 
-	int turn = (1 + stone / 3)%2; // 3이상이면 연산의 횟수를 줄이기 위해 미리 빼주기
+	int turn = (1 + stone / 3)%2;
 	stone = stone % 3;
-	while (stone) {
-		stone -= 1;
-		turn = (turn + 1) % 2;
-	}
-	if (stone == 0) { // stone의 마지막을 가져간 사람 출력
-		cout << name[turn];
-	}
+    if(stone == 0 || stone == 2){
+        cout << name[turn];
+    }
+    else{
+        cout << name[(turn+1)%2];
+    }
 
 	return;
 }
