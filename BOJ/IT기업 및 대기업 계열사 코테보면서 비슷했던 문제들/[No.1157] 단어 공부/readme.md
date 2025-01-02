@@ -128,4 +128,4 @@
     
     1) 1회 for문 2) 2회 for문 두가지 구현했는데, 시간, 메모리 모두 똑같음.. 손해봤다리
     
-    ![image](https://github.com/user-attachments/assets/99a7fe16-0de5-473a-beb5-332761cfff98)
+![image](https://github.com/user-attachments/assets/99a7fe16-0de5-473a-beb5-332761cfff98)
