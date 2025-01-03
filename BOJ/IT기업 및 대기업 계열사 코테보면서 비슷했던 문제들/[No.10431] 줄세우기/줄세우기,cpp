@@ -1,0 +1,93 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Node 구조체 정의
+struct Node {
+    Node* front;
+    Node* back;
+    int value;
+
+    Node(int val) : value(val), front(nullptr), back(nullptr) {}
+};
+
+int processLineup(const vector<int>& heights) {
+    Node* head = new Node(heights[0]); // 첫 번째 학생을 줄의 맨 앞에 둔다.
+    int totalBackwardMoves = 0;
+
+    for (size_t i = 1; i < heights.size(); ++i) {
+        Node* current = head;
+        Node* newNode = new Node(heights[i]);
+        bool inserted = false;
+
+        // 현재 줄의 학생들 사이에서 위치 탐색
+        while (current) {
+            if (current->value > newNode->value) { // 현재 노드의 값보다 새로운 노드의 값잉 크다면
+                // 현재 노드 앞에 삽입
+                newNode->back = current;
+                newNode->front = current->front;
+
+                if (current->front) {
+                    current->front->back = newNode;
+                }
+                else {
+                    head = newNode; // 새로운 노드가 맨 앞이 됨
+                }
+
+                current->front = newNode;
+                inserted = true;
+                break;
+            }
+            current = current->back;
+        }
+
+        // 끝까지 갔지만 삽입되지 않았으면 맨 뒤에 추가
+        if (!inserted) {
+            current = head;
+            while (current->back) current = current->back; // 맨 뒤로 이동
+            current->back = newNode;
+            newNode->front = current;
+        }
+
+        // 한 칸씩 뒤로 물러난 횟수 계산
+        Node* tmp = newNode->back;
+        while (tmp) {
+            ++totalBackwardMoves;
+            tmp = tmp->back;
+        }
+    }
+
+    // 메모리 해제
+    Node* current = head;
+    while (current) {
+        Node* next = current->back;
+        delete current;
+        current = next;
+    }
+
+    return totalBackwardMoves;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int P;
+    cin >> P;
+
+    while (P--) {
+        int T;
+        cin >> T;
+
+        vector<int> heights(20);
+        for (int a = 0; a < 20; ++a) {
+            cin >> heights[a];
+        }
+
+        int result = processLineup(heights);
+        cout << T << " " << result << "\n";
+    }
+
+    return 0;
+}
