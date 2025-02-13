@@ -8,8 +8,22 @@ using namespace std;
 
 /*
     문제 사이트 : https://www.acmicpc.net/problem/7490
-    문제 설명 : 
+    문제 설명 : 주어진 조건에 맞게 0을 만드는 문제 0 만들기 입니다.
 
+    문제 자체는 간단하지만 식을 만드는 것이 까다로운 문제인데, 제가 생각한 풀이는 다음과 같습니다.
+
+    1) 숫자를 1부터 N까지(깊이가 1부터 N까지) 사용하는 DFS를 구현한다.
+    2) DFS는 깊이가 깊어질 때, (깊이,전체 합, 임시 값, 이전에 사용한 연산( '+' '-' ' '')) 를 사용한다
+    3) 다음의 과정을 수행한다
+        3-1)이번에 사용할 연산이 '+' '-' 일 경우
+        - 계산할 값 = 전체 합 + 이전 숫자 or 전체 합 - 이전 숫자 
+        - 다음 DFS로 넘길 값 = (깊이+1,계산할 값, 임시 값(현재 깊이), 이번에 사용한 연산) 를 DFS로 넘긴다
+        3-2) 이번에 사용할 연산지 ' ' 일 경우
+        - 다음 DFS로 넘길 값 = (깊이+1,전체 합,임시 값*10+현재 깊이,이전에 사용한 연산) 을 넘긴다.
+    4) 3의 과정 중 임시값과 이전 연산을 저장하는 연산 중 공백 연산이 존재하기 때문에
+        공백 연산을 할 경우 임시값 *10 + 현재 깊이 를 해주어야 이후 연산에 사용할 수 있음
+        이전 연산을 저장하는 이유는 임시값을 키우는 대신 연산을 진행할 때, 필요한 연산은
+        새로운 연산이 임시값 앞에 존재하는 연산 이므로 저장해 두었다가 사용이 필요
 
       */
 
@@ -39,9 +53,13 @@ void dfs(int nowNum,int result,int before_num,char last_cal) {
     }
 
 
+    temp.push_back(' ');
+    dfs(nowNum + 1, result, before_num * 10 + nowNum, last_cal);
+    temp.pop_back();
+
     if (last_cal == '+') {
         temp.push_back('+');
-        dfs(nowNum + 1, result + before_num, nowNum, '+'); // 3 , 3 
+        dfs(nowNum + 1, result + before_num, nowNum, '+');
         temp.pop_back();
 
         temp.push_back('-');
@@ -57,10 +75,6 @@ void dfs(int nowNum,int result,int before_num,char last_cal) {
         dfs(nowNum + 1, result - before_num, nowNum, '-');
         temp.pop_back();
     }
-
-    temp.push_back(' ');
-    dfs(nowNum + 1, result, before_num*10+nowNum,last_cal);
-    temp.pop_back();
 
 }
 void Solve() {
