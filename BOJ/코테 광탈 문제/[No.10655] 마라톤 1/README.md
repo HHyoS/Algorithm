@@ -84,6 +84,6 @@
 
 풀이 후기
 
-    브롱즈도 무시하지 말 것.
+    브롱즈도 무시하지 말 것....
     오늘을 초큼 피곤하니까.... 담에 두 문제 풀게요
 ![image](https://github.com/user-attachments/assets/102a2093-a18b-4d12-b2e8-8d43b27f44c6)
