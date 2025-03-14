@@ -1,6 +1,6 @@
 문제 사이트 : https://www.acmicpc.net/problem/10655
 
-문제 설명 
+문제 설명  
 
 ![image](https://github.com/user-attachments/assets/e0188c29-3028-4349-9d04-8aaf2409a043)
 ![image](https://github.com/user-attachments/assets/b200e611-a346-4389-af1a-6c01e5a46073)
@@ -63,7 +63,7 @@
     }
     
     
-    void Input() {
+    void Input() { 
         cin >> N;
         for (int a = 0; a < N; ++a) {
             int x,y;
