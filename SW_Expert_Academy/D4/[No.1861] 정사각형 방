@@ -1,0 +1,87 @@
+#include<iostream>
+#include <vector>
+#include <unordered_map>
+#include <queue>
+#include <memory.h>
+using namespace std;
+
+
+
+int N;
+int room[1010][1010];
+bool visited[1010][1010];
+int tmp_ans = 0;
+int ans = 0;
+int mov[4][2] = { {-1,0},{0,1},{1,0},{0,-1} };
+int ax, ay;
+void dfs(int x, int y, int cnt) {
+
+	tmp_ans = max(tmp_ans, cnt);
+	
+	for (int a = 0; a < 4; ++a) {
+		int nx = x + mov[a][0];
+		int ny = y + mov[a][1];
+
+		if (nx >= N || nx < 0 || ny >= N || ny < 0) continue;
+		if (visited[nx][ny]) continue;
+		if (room[nx][ny] != room[x][y] + 1) continue;
+		visited[nx][ny] = true;
+		dfs(nx, ny, cnt + 1);
+		visited[nx][ny] = false;
+	}
+}
+void Solve() {
+	for (int a = 0; a < N; ++a) {
+		for (int b = 0; b < N; ++b) {
+			tmp_ans = 0;
+			visited[a][b] = true;
+			dfs(a, b, 1);
+			visited[a][b] = false;
+			if (tmp_ans == ans) {
+				if (room[a][b] < room[ax][ay]) {
+					ax = a;
+					ay = b;
+				}
+			}
+			else if (tmp_ans > ans) {
+				ax = a;
+				ay = b;
+				ans = tmp_ans;
+			}
+		}
+	}
+}
+
+void init() {
+	ans = 0;
+	tmp_ans = 0;
+	memset(room, 0, sizeof(room));
+}
+int main(int argc, char** argv)
+{
+	ios::sync_with_stdio(false);
+
+	cin.tie(NULL);
+	cout.tie(NULL);
+	int test_case;
+	int T;
+	//freopen("input.txt", "r", stdin);
+	cin >> T;
+	/*
+	   여러 개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
+	*/
+	for (test_case = 1; test_case <= T; ++test_case)
+	{
+		init();
+		cin >> N;
+		for (int a = 0; a < N; ++a) {
+			for (int b = 0; b < N; ++b) {
+				cin >> room[a][b];
+			}
+		}
+		Solve();
+		
+		cout << "#"<<test_case<< " "<<room[ax][ay] << " " <<ans <<"\n";
+	}
+	return 0;//정상종료시 반드시 0을 리턴해야합니다.
+}
