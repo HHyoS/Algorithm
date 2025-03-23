@@ -145,3 +145,9 @@
     	cout << Solve();
     	return 0;//정상종료시 반드시 0을 리턴해야합니다.
     }
+
+풀이 후기
+
+![image](https://github.com/user-attachments/assets/60fd6366-b9de-4725-927c-3d1272016566)
+
+    한번 풀었던 문제인데 또 푸니까 한세월 걸리는 안타까운 기억력...
