@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/f3220163-40b0-4efc-a6bc-347fcd6fd990)문제 사이트 : https://www.acmicpc.net/problem/11049
+문제 사이트 : https://www.acmicpc.net/problem/11049
 
 문제 설명
 
