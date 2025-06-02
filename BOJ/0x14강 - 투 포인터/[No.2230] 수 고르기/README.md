@@ -7,6 +7,7 @@ https://www.acmicpc.net/problem/2230
 ![image](https://github.com/user-attachments/assets/9737a299-8e69-4638-bbed-cb9510be6137)
 
 # 풀이 알고리즘
+
 ## 입력 처리
 - 수열의 크기 N, 최소차이 M, 수열 A를 입력 받음
   
